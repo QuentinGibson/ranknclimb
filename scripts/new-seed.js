@@ -10,7 +10,7 @@ const {
   decks,
   cards,
   answerBanks,
-} = require('../app/lib/placeholder-data.js');
+} = require('../app/lib/new-placeholder.js');
 
 const bcrypt = require('bcrypt');
 
@@ -36,8 +36,8 @@ async function seedUsers(client) {
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         return client.sql`
-        INSERT INTO users (id, name, email, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword}, ${user.role}}, ${user.verified}})
+        INSERT INTO users (id, name, email, password, role, verified)
+        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword}, ${user.role}, ${user.verified})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),
@@ -151,7 +151,7 @@ async function seedRoles(client) {
       roles.map(async (role) => {
         return client.sql`
         INSERT INTO lol_roles (id, name, icon)
-        VALUES (${role.id}, ${role.name}, ${role.icon}})
+        VALUES (${role.id}, ${role.name}, ${role.icon})
         ON CONFLICT (id) DO NOTHING;
       `;
       }),
@@ -257,7 +257,7 @@ async function seedDecks(client) {
         champion_id UUID NOT NULL,
         keybind VARCHAR(50) NOT NULL,
         name VARCHAR(255) NOT NULL,
-        icon VARCHAR(255) NOT NULL,
+        icon VARCHAR(255) NOT NULL
       );
     `;
 
@@ -324,7 +324,6 @@ async function seedCards(client) {
   }
 }
 
-
 async function seedAnswerBank(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -343,7 +342,7 @@ async function seedAnswerBank(client) {
     const insertedAnswerBank = await Promise.all(
       answerBanks.map(async (answerBank) => {
         return client.sql`
-        INSERT INTO cards (id, cardId, content)
+        INSERT INTO answer_banks (id, cardId, content)
         VALUES (${answerBank.id}, ${answerBank.cardId}, ${answerBank.content})
         ON CONFLICT (id) DO NOTHING;
       `;
@@ -369,7 +368,6 @@ async function main() {
   await seedClasses(client);
   await seedChampions(client);
   await seedRoles(client);
-  await championClasses(client);
   await seedChampionClassRelations(client);
   await seedChampionRolesRelations(client);
   await seedDecks(client);

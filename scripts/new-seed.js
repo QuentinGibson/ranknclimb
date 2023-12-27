@@ -6,6 +6,10 @@ const {
   champions,
   roles,
   championClasses,
+  championRoles: deck,
+  decks,
+  cards,
+  answerBanks,
 } = require('../app/lib/placeholder-data.js');
 
 const bcrypt = require('bcrypt');
@@ -204,6 +208,160 @@ async function seedChampionClassRelations(client) {
   }
 }
 
+async function seedChampionRolesRelations(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "champion role" relation table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS lol_champion_role_relations (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        champion_id UUID NOT NULL,
+        role_id UUID NOT NULL
+      );
+    `;
+
+    console.log(`Created "Champion role relations" table`);
+
+    // Insert data into the "lol Champion role" relations table
+    const insertedChampionRoles = await Promise.all(
+      deck.map(async (championRole) => {
+        return client.sql`
+        INSERT INTO lol_champion_role_relations (id, champion_id, role_id)
+        VALUES (${championRole.id}, ${championRole.champion_id}, ${championRole.role_id})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+      }),
+    );
+
+    console.log(
+      `Seeded ${insertedChampionRoles.length} champion role relations`,
+    );
+
+    return {
+      createTable,
+      championRoles: insertedChampionRoles,
+    };
+  } catch (error) {
+    console.error('Error seeding champion role relations:', error);
+    throw error;
+  }
+}
+
+async function seedDecks(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "deck" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS decks (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        champion_id UUID NOT NULL,
+        keybind VARCHAR(50) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        icon VARCHAR(255) NOT NULL,
+      );
+    `;
+
+    console.log(`Created "deck" table`);
+
+    // Insert data into the "deck" table
+    const insertedDeck = await Promise.all(
+      decks.map(async (deck) => {
+        return client.sql`
+        INSERT INTO decks (id, champion_id, keybind, name, icon)
+        VALUES (${deck.id}, ${deck.champion_id}, ${deck.keybind}, ${deck.name}, ${deck.icon})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+      }),
+    );
+
+    console.log(`Seeded ${insertedDeck.length} decks`);
+
+    return {
+      createTable,
+      decks: insertedDeck,
+    };
+  } catch (error) {
+    console.error('Error seeding decks:', error);
+    throw error;
+  }
+}
+
+async function seedCards(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "card" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS cards (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        deckId UUID NOT NULL,
+        question VARCHAR(255) NOT NULL,
+        correctAnswer VARCHAR(255) NOT NULL
+      );
+    `;
+
+    console.log(`Created "cards" table`);
+
+    // Insert data into the "card" table
+    const insertedCards = await Promise.all(
+      cards.map(async (card) => {
+        return client.sql`
+        INSERT INTO cards (id, deckId, question, correctAnswer)
+        VALUES (${card.id}, ${card.deckId}, ${card.question}, ${card.correctAnswer})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+      }),
+    );
+
+    console.log(`Seeded ${insertedCards.length} cards`);
+
+    return {
+      createTable,
+      cards: insertedCards,
+    };
+  } catch (error) {
+    console.error('Error seeding cards:', error);
+    throw error;
+  }
+}
+
+
+async function seedAnswerBank(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "answer banks" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS answer_banks (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        cardId UUID NOT NULL,
+        content VARCHAR(255) NOT NULL
+      );
+    `;
+
+    console.log(`Created "answer bank" table`);
+
+    // Insert data into the "answer bank" table
+    const insertedAnswerBank = await Promise.all(
+      answerBanks.map(async (answerBank) => {
+        return client.sql`
+        INSERT INTO cards (id, cardId, content)
+        VALUES (${answerBank.id}, ${answerBank.cardId}, ${answerBank.content})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+      }),
+    );
+
+    console.log(`Seeded ${insertedAnswerBank.length} answer banks`);
+
+    return {
+      createTable,
+      answerBank: insertedAnswerBank,
+    };
+  } catch (error) {
+    console.error('Error seeding answer bank:', error);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
@@ -213,9 +371,10 @@ async function main() {
   await seedRoles(client);
   await championClasses(client);
   await seedChampionClassRelations(client);
-  // await seedCustomers(client);
-  // await seedInvoices(client);
-  // await seedRevenue(client);
+  await seedChampionRolesRelations(client);
+  await seedDecks(client);
+  await seedCards(client);
+  await seedAnswerBank(client);
 
   await client.end();
 }

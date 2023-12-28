@@ -23,3 +23,13 @@ export const Default: Story = {
     altText: 'Feature image',
   },
 };
+
+export const Flip: Story = {
+  args: {
+    flip: true,
+    title: 'Feature',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis pretium massa. Aliquam erat volutpat.',
+    image: 'https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg',
+    altText: 'Feature image',
+  }
+}

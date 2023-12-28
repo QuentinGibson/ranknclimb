@@ -15,7 +15,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
-  <header className='bg-zinc-600'>
+  <header>
     <div className="storybook-header">
       <div>
         <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
             />
           </g>
         </svg>
-        <h1 className='text-purple-500'>Acme</h1>
+        <h1 >Acme</h1>
       </div>
       <div>
         {user ? (

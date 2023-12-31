@@ -6,7 +6,6 @@
     "lint": "next lint",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "seed": "node -r dotenv/config ./scripts/seed.js",
     "new-seed": "node -r dotenv/config ./scripts/new-seed.js",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
@@ -58,8 +57,7 @@
   "engines": {
     "node": ">=18.17.0"
   },
-  "name": "",
-  "version": "",
-  "readme": "ERROR: No README data found!",
+  "name": "rank-n-climb",
+  "version": "0.0.0",
   "_id": "@"
 }

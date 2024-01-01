@@ -2,11 +2,7 @@ import type { StorybookConfig } from '@storybook/nextjs';
 import path from 'path';
 
 const config: StorybookConfig = {
-  stories: [
-    '../stories/**/*.mdx',
-    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../app/ui/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ['../app/ui/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
@@ -17,7 +13,12 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/nextjs',
-    options: {},
+    options: {
+      builder: {
+        useSWC: true,
+      },
+      nextConfigPath: path.resolve(__dirname, '../next.config.js'),
+    },
   },
   docs: {
     autodocs: 'tag',

@@ -1,10 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './stories/**/*.{js,ts,jsx,tsx}'
-  ],
+  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './stories/**/*.{js,ts,jsx,tsx}'],
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
@@ -27,6 +24,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('daisyui'),
+  ],
 };
 export default config;

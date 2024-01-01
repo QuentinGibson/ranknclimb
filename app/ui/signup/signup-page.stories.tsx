@@ -1,14 +1,14 @@
 import { Meta, StoryObj } from '@storybook/react';
-import SignOutPage from './signout-page';
+import SignUpPage from './signup-page';
 
 const meta = {
-  title: 'Page/SignOut',
-  component: SignOutPage,
+  title: 'Page/SignUp',
+  component: SignUpPage,
 } as Meta;
 
 export default meta;
 
-type Story = StoryObj<typeof SignOutPage>;
+type Story = StoryObj<typeof SignUpPage>;
 
 export const Default: Story = {
   args: {},

@@ -24,5 +24,6 @@ export const Default: Story = {
     winRate: 50,
     mainPlayRate: 50,
     mainWinRate: 50,
+    currentRank: '/rank/emerald-icon.png',
   },
 };

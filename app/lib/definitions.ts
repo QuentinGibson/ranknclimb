@@ -98,29 +98,27 @@ export type Class = {
   icon: string;
 }
 
-export type Champion = [
-  {
-    id: string;
-    name: string;
-    icon: string;
-    role: string;
-    range: string;
-    resource: string;
-    attackClass: string;
-    class_id: string;
-  }
-]
+export type Champion = {
+  id: string;
+  name: string;
+  icon: string;
+  role: string;
+  range: string;
+  resource: string;
+  attackClass: string;
+  class_id: string;
+}
 
-export type matchUp = [
-  {
-    champion_id: string;
-    champion_name: string;
-    champion_icon: string;
-    win_rate: number;
-  }
-]
 
-export type Deck = [
+export type matchUp =
+  {
+    championName: string;
+    championIcon: string;
+    winRate: number;
+  }
+
+
+export type Deck =
   {
     id: string;
     name: string;
@@ -128,18 +126,18 @@ export type Deck = [
     icon: string;
     champion_id: string;
   }
-]
 
-export type Card = [
+
+export type Card =
   {
     id: string;
     deck_id: string;
     question: string;
     correct_answer: string;
   }
-]
 
-export type DeckResult = [
+
+export type DeckResult =
   {
     id: string;
     deck_id: string;
@@ -150,9 +148,9 @@ export type DeckResult = [
     time: number;
     date: string;
   }
-]
 
-export type CardResult = [
+
+export type CardResult =
   {
     id: string;
     card_id: string;
@@ -167,13 +165,12 @@ export type CardResult = [
     last_review_date: string;
     next_review_date: string;
   }
-]
 
 
-export type WrongAnswer = [
+
+export type WrongAnswer =
   {
     id: string;
     card_id: string;
     answer: string;
   }
-]

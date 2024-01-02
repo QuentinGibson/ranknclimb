@@ -16,7 +16,7 @@ const preview: Preview = {
   decorators: [
     withThemeByDataAttribute<ReactRenderer>({
       themes: {
-        light: '',
+        light: 'light',
         dark: 'dark',
       },
       defaultTheme: 'light',

@@ -111,6 +111,15 @@ export type Champion = [
   }
 ]
 
+export type matchUp = [
+  {
+    champion_id: string;
+    champion_name: string;
+    champion_icon: string;
+    win_rate: number;
+  }
+]
+
 export type Deck = [
   {
     id: string;

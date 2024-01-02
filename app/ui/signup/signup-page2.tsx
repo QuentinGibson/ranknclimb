@@ -3,16 +3,13 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import {
-  EnvelopeIcon,
   ExclamationCircleIcon,
   LockClosedIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { inter } from '../fonts';
 import React from 'react';
-import SocialButton from '../SocialButton';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 interface FormInputProps {

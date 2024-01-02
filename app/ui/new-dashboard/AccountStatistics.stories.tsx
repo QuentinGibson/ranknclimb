@@ -1,19 +1,18 @@
-import { Meta, StoryObj } from "@storybook/react";
-import AccountStatistics from "./AccountStatistics";
+import { Meta, StoryObj } from '@storybook/react';
+import AccountStatistics from './AccountStatistics';
 
 const meta = {
   title: 'dashboard/AccountStatistics',
   component: AccountStatistics,
   decorators: [
     (Story: any) => (
-      <div className="flex justify-center items-center bg-base-300">
+      <div className="flex items-center justify-center bg-base-300">
         <div className="w-[350px] py-10">
           <Story />
         </div>
       </div>
-    )
-
-  ]
+    ),
+  ],
 } as Meta;
 
 export default meta;
@@ -25,5 +24,5 @@ export const Default: Story = {
     winRate: 50,
     mainPlayRate: 50,
     mainWinRate: 50,
-  }
+  },
 };

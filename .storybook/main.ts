@@ -11,13 +11,15 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-themes',
   ],
+  features: {
+    experimentalNextRSC: true,
+  },
   framework: {
     name: '@storybook/nextjs',
     options: {
       builder: {
         useSWC: true,
       },
-      nextConfigPath: path.resolve(__dirname, '../next.config.js'),
     },
   },
   docs: {

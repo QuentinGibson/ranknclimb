@@ -138,3 +138,51 @@ export async function authenticate(
     throw error;
   }
 }
+
+export async function authenticateWithGoogle() {
+  try {
+    await signIn('google');
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'OAuthSignInError':
+          return 'Failed to authenticate with Google.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
+}
+
+export async function authenticateWithDiscord() {
+  try {
+    await signIn('discord');
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'OAuthSignInError':
+          return 'Failed to authenticate with Discord.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
+}
+
+export async function authtenticateWithTwitch() {
+  try {
+    await signIn('twitch');
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'OAuthSignInError':
+          return 'Failed to authenticate with Twitch.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
+}

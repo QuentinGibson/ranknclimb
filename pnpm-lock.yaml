@@ -38,9 +38,6 @@ dependencies:
   postcss:
     specifier: 8.4.31
     version: 8.4.31
-  react:
-    specifier: 18.2.0
-    version: 18.2.0
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
@@ -124,6 +121,9 @@ devDependencies:
   prettier-plugin-tailwindcss:
     specifier: 0.5.4
     version: 0.5.4(prettier@3.1.1)
+  react:
+    specifier: ^18.2.0
+    version: 18.2.0
   storybook:
     specifier: ^8.0.0-alpha.6
     version: 8.0.0-alpha.6

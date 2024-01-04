@@ -1,17 +1,17 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Sidenav from './sidenav';
+import Navbar from './Navbar';
 
 const meta = {
-  title: 'Shared/Sidenav',
-  component: Sidenav,
+  title: 'Shared/Navbar',
+  component: Navbar,
   decorators: [
     (Story) => (
-      <div className="w-full flex-none md:w-64">
+      <div className="w-full md:w-[21.5rem]">
         <Story />
       </div>
     ),
   ],
-} as Meta<typeof Sidenav>;
+} as Meta<typeof Navbar>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -88,9 +88,8 @@ export default function Navigation({
         {isFilled.group(data.navitems) && (
           <ul className={clsx("items-center gap-4 md:flex")}>
             {data.navitems.map((navitem, index) => (
-              <li>
+              <li key={index}>
                 <PrismicNextLink
-                  key={index}
                   field={navitem.link}
                   className="text-2xl font-bold text-white hover:text-[#f43838]"
                 >

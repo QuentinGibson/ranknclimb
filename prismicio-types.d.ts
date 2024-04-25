@@ -76,7 +76,282 @@ interface PageDocumentData {
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
-export type AllDocumentTypes = PageDocument;
+/**
+ * Item in *settings → NavItems*
+ */
+export interface SettingsDocumentDataNavitemsItem {
+  /**
+   * Label field in *settings → NavItems*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navitems[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Link field in *settings → NavItems*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navitems[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * Item in *settings → Navigation Signed Out Actions*
+ */
+export interface SettingsDocumentDataNavigationSignedOutActionsItem {
+  /**
+   * Label field in *settings → Navigation Signed Out Actions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_out_actions[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Link field in *settings → Navigation Signed Out Actions*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_out_actions[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * CTA field in *settings → Navigation Signed Out Actions*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: settings.navigation_signed_out_actions[].cta
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  cta: prismic.BooleanField;
+}
+
+/**
+ * Item in *settings → Navigation Signed In Actions*
+ */
+export interface SettingsDocumentDataNavigationSignedInActionsItem {
+  /**
+   * Label field in *settings → Navigation Signed In Actions*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_in_actions[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Link field in *settings → Navigation Signed In Actions*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_in_actions[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * CTA field in *settings → Navigation Signed In Actions*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: settings.navigation_signed_in_actions[].cta
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  cta: prismic.BooleanField;
+}
+
+/**
+ * Item in *settings → Social Media*
+ */
+export interface SettingsDocumentDataSocialMediaItem {
+  /**
+   * Link field in *settings → Social Media*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.social_media[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * Icon field in *settings → Social Media*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.social_media[].icon
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  icon: prismic.SelectField<"Facebook" | "Instagram" | "Twitter" | "Youtube">;
+}
+
+/**
+ * Item in *settings → FooterItems*
+ */
+export interface SettingsDocumentDataFooteritemsItem {
+  /**
+   * Label field in *settings → FooterItems*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footeritems[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Link field in *settings → FooterItems*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footeritems[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * Content for settings documents
+ */
+interface SettingsDocumentData {
+  /**
+   * Logo field in *settings*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * NavItems field in *settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navitems[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  navitems: prismic.GroupField<Simplify<SettingsDocumentDataNavitemsItem>>;
+
+  /**
+   * Navigation Signed Out Actions field in *settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_out_actions[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  navigation_signed_out_actions: prismic.GroupField<
+    Simplify<SettingsDocumentDataNavigationSignedOutActionsItem>
+  >;
+
+  /**
+   * Navigation Signed In Actions field in *settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_in_actions[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  navigation_signed_in_actions: prismic.GroupField<
+    Simplify<SettingsDocumentDataNavigationSignedInActionsItem>
+  >;
+
+  /**
+   * Social Media field in *settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.social_media[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  social_media: prismic.GroupField<
+    Simplify<SettingsDocumentDataSocialMediaItem>
+  >;
+
+  /**
+   * FooterItems field in *settings*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footeritems[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  footeritems: prismic.GroupField<
+    Simplify<SettingsDocumentDataFooteritemsItem>
+  >;
+
+  /**
+   * Copyright field in *settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.copyright
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  copyright: prismic.RichTextField;
+
+  /**
+   * Newsletter  field in *settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.newsletter
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  newsletter: prismic.RichTextField;
+
+  /**
+   * Footer Letter field in *settings*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_letter
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  footer_letter: prismic.RichTextField;
+}
+
+/**
+ * settings document from Prismic
+ *
+ * - **API ID**: `settings`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type SettingsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<SettingsDocumentData>,
+    "settings",
+    Lang
+  >;
+
+export type AllDocumentTypes = PageDocument | SettingsDocument;
 
 /**
  * Primary content in *RichText → Primary*
@@ -136,6 +411,13 @@ declare module "@prismicio/client" {
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      SettingsDocument,
+      SettingsDocumentData,
+      SettingsDocumentDataNavitemsItem,
+      SettingsDocumentDataNavigationSignedOutActionsItem,
+      SettingsDocumentDataNavigationSignedInActionsItem,
+      SettingsDocumentDataSocialMediaItem,
+      SettingsDocumentDataFooteritemsItem,
       AllDocumentTypes,
       RichTextSlice,
       RichTextSliceDefaultPrimary,

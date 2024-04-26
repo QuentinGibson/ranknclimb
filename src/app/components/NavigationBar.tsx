@@ -12,7 +12,7 @@ export default async function NavigationBar() {
 
   return (
     <header className="bg-[#0D0C11] px-4 py-3 md:px-6">
-      <div className="flex w-full items-center justify-between gap-8">
+      <div className="flex w-full items-center justify-between gap-8 lg:gap-16">
         <div className="relative h-[90px] w-[100px]">
           {isFilled.image(data.logo) ? (
             <PrismicNextImage field={data.logo} fill />

@@ -4,6 +4,70 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type HomeDocumentDataSlicesSlice =
+  | VideoShowcaseSlice
+  | GamingSiteFactsSlice
+  | HeroSlice;
+
+/**
+ * Content for Home documents
+ */
+interface HomeDocumentData {
+  /**
+   * Slice Zone field in *Home*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice> /**
+   * Meta Description field in *Home*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: home.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Home*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: home.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *Home*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: home.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * Home document from Prismic
+ *
+ * - **API ID**: `home`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HomeDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<HomeDocumentData>, "home", Lang>;
+
 type PageDocumentDataSlicesSlice = RichTextSlice;
 
 /**
@@ -351,7 +415,179 @@ export type SettingsDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = PageDocument | SettingsDocument;
+export type AllDocumentTypes = HomeDocument | PageDocument | SettingsDocument;
+
+/**
+ * Primary content in *GamingSiteFacts → Primary*
+ */
+export interface GamingSiteFactsSliceDefaultPrimary {
+  /**
+   * Jumbotron field in *GamingSiteFacts → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gaming_site_facts.primary.jumbotron
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  jumbotron: prismic.ImageField<never>;
+
+  /**
+   * Subtitle field in *GamingSiteFacts → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gaming_site_facts.primary.subtitle
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  subtitle: prismic.RichTextField;
+
+  /**
+   * Title field in *GamingSiteFacts → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gaming_site_facts.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.TitleField;
+}
+
+/**
+ * Primary content in *GamingSiteFacts → Items*
+ */
+export interface GamingSiteFactsSliceDefaultItem {
+  /**
+   * Icon field in *GamingSiteFacts → Items*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gaming_site_facts.items[].icon
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  icon: prismic.SelectField<"Game" | "Wings" | "Headphones">;
+
+  /**
+   * Fact field in *GamingSiteFacts → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gaming_site_facts.items[].fact
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  fact: prismic.RichTextField;
+
+  /**
+   * description field in *GamingSiteFacts → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: gaming_site_facts.items[].description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+}
+
+/**
+ * Default variation for GamingSiteFacts Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type GamingSiteFactsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<GamingSiteFactsSliceDefaultPrimary>,
+  Simplify<GamingSiteFactsSliceDefaultItem>
+>;
+
+/**
+ * Slice variation for *GamingSiteFacts*
+ */
+type GamingSiteFactsSliceVariation = GamingSiteFactsSliceDefault;
+
+/**
+ * GamingSiteFacts Shared Slice
+ *
+ * - **API ID**: `gaming_site_facts`
+ * - **Description**: GamingSiteFacts
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type GamingSiteFactsSlice = prismic.SharedSlice<
+  "gaming_site_facts",
+  GamingSiteFactsSliceVariation
+>;
+
+/**
+ * Primary content in *Hero → Primary*
+ */
+export interface HeroSliceDefaultPrimary {
+  /**
+   * Title field in *Hero → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * description field in *Hero → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * CTA Label field in *Hero → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.primary.cta_label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  cta_label: prismic.KeyTextField;
+
+  /**
+   * CTA Link field in *Hero → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: hero.primary.cta_link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  cta_link: prismic.LinkField;
+}
+
+/**
+ * Default variation for Hero Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<HeroSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Hero*
+ */
+type HeroSliceVariation = HeroSliceDefault;
+
+/**
+ * Hero Shared Slice
+ *
+ * - **API ID**: `hero`
+ * - **Description**: Hero
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
 
 /**
  * Primary content in *RichText → Primary*
@@ -398,6 +634,51 @@ export type RichTextSlice = prismic.SharedSlice<
   RichTextSliceVariation
 >;
 
+/**
+ * Primary content in *VideoShowcase → Items*
+ */
+export interface VideoShowcaseSliceDefaultItem {
+  /**
+   * Media field in *VideoShowcase → Items*
+   *
+   * - **Field Type**: Link to Media
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_showcase.items[].media
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  media: prismic.LinkToMediaField;
+}
+
+/**
+ * Default variation for VideoShowcase Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VideoShowcaseSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  Simplify<VideoShowcaseSliceDefaultItem>
+>;
+
+/**
+ * Slice variation for *VideoShowcase*
+ */
+type VideoShowcaseSliceVariation = VideoShowcaseSliceDefault;
+
+/**
+ * VideoShowcase Shared Slice
+ *
+ * - **API ID**: `video_showcase`
+ * - **Description**: VideoShowcase
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type VideoShowcaseSlice = prismic.SharedSlice<
+  "video_showcase",
+  VideoShowcaseSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -408,6 +689,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      HomeDocument,
+      HomeDocumentData,
+      HomeDocumentDataSlicesSlice,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
@@ -419,10 +703,23 @@ declare module "@prismicio/client" {
       SettingsDocumentDataSocialMediaItem,
       SettingsDocumentDataFooteritemsItem,
       AllDocumentTypes,
+      GamingSiteFactsSlice,
+      GamingSiteFactsSliceDefaultPrimary,
+      GamingSiteFactsSliceDefaultItem,
+      GamingSiteFactsSliceVariation,
+      GamingSiteFactsSliceDefault,
+      HeroSlice,
+      HeroSliceDefaultPrimary,
+      HeroSliceVariation,
+      HeroSliceDefault,
       RichTextSlice,
       RichTextSliceDefaultPrimary,
       RichTextSliceVariation,
       RichTextSliceDefault,
+      VideoShowcaseSlice,
+      VideoShowcaseSliceDefaultItem,
+      VideoShowcaseSliceVariation,
+      VideoShowcaseSliceDefault,
     };
   }
 }

@@ -1,6 +1,9 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
+import { ClerkProvider } from "@clerk/nextjs";
 import NavigationBar from "./components/NavigationBar";
+
+import "@/global.css";
 
 export default function RootLayout({
   children,
@@ -8,12 +11,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <NavigationBar/>
-        {children}
-      </body>
-      <PrismicPreview repositoryName={repositoryName} />
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="bg-[#0d0c11] text-white">
+        <body>
+          <NavigationBar />
+          {children}
+        </body>
+        <PrismicPreview repositoryName={repositoryName} />
+      </html>
+    </ClerkProvider>
   );
 }

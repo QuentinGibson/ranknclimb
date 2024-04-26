@@ -2,6 +2,7 @@ import Bounded from "@/app/components/Bounded";
 import { Content } from "@prismicio/client";
 import { PrismicNextImage } from "@prismicio/next";
 import { PrismicText, SliceComponentProps } from "@prismicio/react";
+import clsx from "clsx";
 import { Swords, Gamepad2, Rss, Headset } from "lucide-react";
 
 /**
@@ -14,10 +15,11 @@ export type GamingSiteFactsProps =
  * Component for "GamingSiteFacts" Slices.
  */
 const GamingSiteFacts = ({ slice }: GamingSiteFactsProps): JSX.Element => {
+  const iconClass = "size-16 md:size-24";
   const icons = {
-    Game: <Gamepad2 size={96} />,
-    Wings: <Rss size={96} />,
-    Headphones: <Headset size={96} />,
+    Game: <Gamepad2 className={iconClass} />,
+    Wings: <Rss className={iconClass} />,
+    Headphones: <Headset className={iconClass} />,
   };
   return (
     <Bounded
@@ -33,13 +35,13 @@ const GamingSiteFacts = ({ slice }: GamingSiteFactsProps): JSX.Element => {
             fill
           />
         </div>
-        <div className="grid grid-cols-[100px_1fr] items-center gap-x-4 gap-y-4">
-          <h3 className="col-start-2 text-lg font-semibold text-[#f43838]">
+        <div className="grid grid-cols-[70px_1fr] items-center gap-x-4 gap-y-4 md:grid-cols-[100px_1fr]">
+          <h3 className="col-start-2 text-base font-semibold text-[#f43838] sm:text-lg">
             <PrismicText field={slice.primary.subtitle} />
           </h3>
-          <Swords className="col-start-1" color="#f43838" size={96} />
+          <Swords className={clsx("col-start-1", iconClass)} color="#f43838" />
           <div>
-            <h2 className="text-2xl font-bold text-white md:text-4xl">
+            <h2 className="text-2xl font-bold text-white lg:text-4xl">
               <PrismicText field={slice.primary.title} />
             </h2>
           </div>

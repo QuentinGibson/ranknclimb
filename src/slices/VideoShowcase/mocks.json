@@ -2,26 +2,45 @@
 	{
 		"__TYPE__": "SharedSliceContent",
 		"variation": "default",
-		"primary": {},
+		"primary": {
+			"thumbnailoverride": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+					"width": 3882,
+					"height": 2584
+				},
+				"url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+				"width": 3882,
+				"height": 2584,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"credits": null,
+				"alt": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			},
+			"title": {
+				"__TYPE__": "FieldContent",
+				"value": "yet",
+				"type": "Text"
+			},
+			"youtubeid": {
+				"__TYPE__": "FieldContent",
+				"value": "equal",
+				"type": "Text"
+			}
+		},
 		"items": [
 			{
 				"__TYPE__": "GroupItemContent",
-				"value": [
-					[
-						"media",
-						{
-							"__TYPE__": "LinkContent",
-							"value": {
-								"id": "mock_Media_link",
-								"kind": "image/jpeg",
-								"name": "mock_name",
-								"url": "https://source.unsplash.com/daily",
-								"size": "0",
-								"__TYPE__": "FileLink"
-							}
-						}
-					]
-				]
+				"value": []
 			}
 		]
 	}

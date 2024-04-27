@@ -5,6 +5,7 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
 type HomeDocumentDataSlicesSlice =
+  | BlogShowcaseSlice
   | VideoShowcaseSlice
   | GamingSiteFactsSlice
   | HeroSlice;
@@ -418,6 +419,61 @@ export type SettingsDocument<Lang extends string = string> =
 export type AllDocumentTypes = HomeDocument | PageDocument | SettingsDocument;
 
 /**
+ * Primary content in *BlogShowcase → Primary*
+ */
+export interface BlogShowcaseSliceDefaultPrimary {
+  /**
+   * Title field in *BlogShowcase → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_showcase.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * Subtitle field in *BlogShowcase → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_showcase.primary.subtitle
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  subtitle: prismic.RichTextField;
+}
+
+/**
+ * Default variation for BlogShowcase Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BlogShowcaseSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BlogShowcaseSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *BlogShowcase*
+ */
+type BlogShowcaseSliceVariation = BlogShowcaseSliceDefault;
+
+/**
+ * BlogShowcase Shared Slice
+ *
+ * - **API ID**: `blog_showcase`
+ * - **Description**: BlogShowcase
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BlogShowcaseSlice = prismic.SharedSlice<
+  "blog_showcase",
+  BlogShowcaseSliceVariation
+>;
+
+/**
  * Primary content in *GamingSiteFacts → Primary*
  */
 export interface GamingSiteFactsSliceDefaultPrimary {
@@ -635,18 +691,38 @@ export type RichTextSlice = prismic.SharedSlice<
 >;
 
 /**
- * Primary content in *VideoShowcase → Items*
+ * Primary content in *VideoShowcase → Primary*
  */
-export interface VideoShowcaseSliceDefaultItem {
+export interface VideoShowcaseSliceDefaultPrimary {
   /**
-   * Media field in *VideoShowcase → Items*
+   * thumbnailOverride field in *VideoShowcase → Primary*
    *
-   * - **Field Type**: Link to Media
+   * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: video_showcase.items[].media
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **API ID Path**: video_showcase.primary.thumbnailoverride
+   * - **Documentation**: https://prismic.io/docs/field#image
    */
-  media: prismic.LinkToMediaField;
+  thumbnailoverride: prismic.ImageField<never>;
+
+  /**
+   * Title field in *VideoShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_showcase.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * YoutubeID field in *VideoShowcase → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: video_showcase.primary.youtubeid
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  youtubeid: prismic.KeyTextField;
 }
 
 /**
@@ -658,8 +734,8 @@ export interface VideoShowcaseSliceDefaultItem {
  */
 export type VideoShowcaseSliceDefault = prismic.SharedSliceVariation<
   "default",
-  Record<string, never>,
-  Simplify<VideoShowcaseSliceDefaultItem>
+  Simplify<VideoShowcaseSliceDefaultPrimary>,
+  never
 >;
 
 /**
@@ -703,6 +779,10 @@ declare module "@prismicio/client" {
       SettingsDocumentDataSocialMediaItem,
       SettingsDocumentDataFooteritemsItem,
       AllDocumentTypes,
+      BlogShowcaseSlice,
+      BlogShowcaseSliceDefaultPrimary,
+      BlogShowcaseSliceVariation,
+      BlogShowcaseSliceDefault,
       GamingSiteFactsSlice,
       GamingSiteFactsSliceDefaultPrimary,
       GamingSiteFactsSliceDefaultItem,
@@ -717,7 +797,7 @@ declare module "@prismicio/client" {
       RichTextSliceVariation,
       RichTextSliceDefault,
       VideoShowcaseSlice,
-      VideoShowcaseSliceDefaultItem,
+      VideoShowcaseSliceDefaultPrimary,
       VideoShowcaseSliceVariation,
       VideoShowcaseSliceDefault,
     };

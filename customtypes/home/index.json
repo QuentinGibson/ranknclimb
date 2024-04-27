@@ -11,6 +11,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "blog_showcase": {
+              "type": "SharedSlice"
+            },
             "video_showcase": {
               "type": "SharedSlice"
             },

@@ -1,3 +1,5 @@
+import Bounded from "@/app/components/Bounded";
+import YoutubeLazyLoad from "@/app/components/YoutubeLazyLoad";
 import { Content } from "@prismicio/client";
 import { SliceComponentProps } from "@prismicio/react";
 
@@ -10,15 +12,18 @@ export type VideoShowcaseProps =
 /**
  * Component for "VideoShowcase" Slices.
  */
-const VideoShowcase = ({ slice }: VideoShowcaseProps): JSX.Element => {
+const VideoShowcase = async ({
+  slice,
+}: VideoShowcaseProps): Promise<JSX.Element> => {
   return (
-    <section
+    <Bounded
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
     >
-      Placeholder component for video_showcase (variation: {slice.variation})
-      Slices
-    </section>
+      <div className="w-full text-red-500">
+        <YoutubeLazyLoad slice={slice} />
+      </div>
+    </Bounded>
   );
 };
 

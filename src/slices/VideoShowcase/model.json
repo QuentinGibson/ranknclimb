@@ -11,17 +11,31 @@
       "version": "initial",
       "description": "Default",
       "imageUrl": "",
-      "primary": {},
-      "items": {
-        "media": {
-          "type": "Link",
+      "primary": {
+        "thumbnailoverride": {
+          "type": "Image",
           "config": {
-            "label": "Media",
-            "placeholder": "",
-            "select": "media"
+            "label": "thumbnailOverride",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "youtubeid": {
+          "type": "Text",
+          "config": {
+            "label": "YoutubeID",
+            "placeholder": ""
           }
         }
-      }
+      },
+      "items": {}
     }
   ]
 }

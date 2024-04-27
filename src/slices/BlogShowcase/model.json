@@ -31,7 +31,15 @@
           }
         }
       },
-      "items": {}
+      "items": {
+        "featured_blogs": {
+          "type": "Link",
+          "config": {
+            "label": "Featured Blogs",
+            "select": "document"
+          }
+        }
+      }
     }
   ]
 }

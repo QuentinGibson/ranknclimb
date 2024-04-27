@@ -67,6 +67,15 @@
                 "placeholder_true": "true",
                 "placeholder_false": "false"
               }
+            },
+            "clerk_action": {
+              "type": "Boolean",
+              "config": {
+                "label": "clerk_action",
+                "default_value": false,
+                "placeholder_true": "true",
+                "placeholder_false": "false"
+              }
             }
           }
         }
@@ -99,6 +108,15 @@
                 "default_value": false,
                 "placeholder_true": "true",
                 "placeholder_false": "false"
+              }
+            },
+            "clerk_action": {
+              "type": "Boolean",
+              "config": {
+                "label": "Clerk Action",
+                "placeholder_false": "false",
+                "placeholder_true": "true",
+                "default_value": false
               }
             }
           }
@@ -179,6 +197,14 @@
           "placeholder": "",
           "allowTargetBlank": true,
           "single": "paragraph,strong"
+        }
+      },
+      "footer_background": {
+        "type": "Image",
+        "config": {
+          "label": "footer Background",
+          "constraint": {},
+          "thumbnails": []
         }
       }
     }

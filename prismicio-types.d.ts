@@ -4,6 +4,104 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type BlogpostDocumentDataSlicesSlice = RichTextSlice;
+
+/**
+ * Content for BlogPost documents
+ */
+interface BlogpostDocumentData {
+  /**
+   * Title field in *BlogPost*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogpost.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.RichTextField;
+
+  /**
+   * date field in *BlogPost*
+   *
+   * - **Field Type**: Date
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogpost.date
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#date
+   */
+  date: prismic.DateField;
+
+  /**
+   * Image field in *BlogPost*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogpost.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *BlogPost*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogpost.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<BlogpostDocumentDataSlicesSlice> /**
+   * Meta Description field in *BlogPost*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: blogpost.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *BlogPost*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blogpost.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *BlogPost*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: blogpost.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * BlogPost document from Prismic
+ *
+ * - **API ID**: `blogpost`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type BlogpostDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<BlogpostDocumentData>,
+    "blogpost",
+    Lang
+  >;
+
 type HomeDocumentDataSlicesSlice =
   | BlogShowcaseSlice
   | VideoShowcaseSlice
@@ -200,6 +298,17 @@ export interface SettingsDocumentDataNavigationSignedOutActionsItem {
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
   cta: prismic.BooleanField;
+
+  /**
+   * clerk_action field in *settings → Navigation Signed Out Actions*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: settings.navigation_signed_out_actions[].clerk_action
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  clerk_action: prismic.BooleanField;
 }
 
 /**
@@ -236,6 +345,17 @@ export interface SettingsDocumentDataNavigationSignedInActionsItem {
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
   cta: prismic.BooleanField;
+
+  /**
+   * Clerk Action field in *settings → Navigation Signed In Actions*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: settings.navigation_signed_in_actions[].clerk_action
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  clerk_action: prismic.BooleanField;
 }
 
 /**
@@ -398,6 +518,17 @@ interface SettingsDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   footer_letter: prismic.RichTextField;
+
+  /**
+   * footer Background field in *settings*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.footer_background
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  footer_background: prismic.ImageField<never>;
 }
 
 /**
@@ -416,7 +547,11 @@ export type SettingsDocument<Lang extends string = string> =
     Lang
   >;
 
-export type AllDocumentTypes = HomeDocument | PageDocument | SettingsDocument;
+export type AllDocumentTypes =
+  | BlogpostDocument
+  | HomeDocument
+  | PageDocument
+  | SettingsDocument;
 
 /**
  * Primary content in *BlogShowcase → Primary*
@@ -444,6 +579,21 @@ export interface BlogShowcaseSliceDefaultPrimary {
 }
 
 /**
+ * Primary content in *BlogShowcase → Items*
+ */
+export interface BlogShowcaseSliceDefaultItem {
+  /**
+   * Featured Blogs field in *BlogShowcase → Items*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: blog_showcase.items[].featured_blogs
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  featured_blogs: prismic.ContentRelationshipField;
+}
+
+/**
  * Default variation for BlogShowcase Slice
  *
  * - **API ID**: `default`
@@ -453,7 +603,7 @@ export interface BlogShowcaseSliceDefaultPrimary {
 export type BlogShowcaseSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<BlogShowcaseSliceDefaultPrimary>,
-  never
+  Simplify<BlogShowcaseSliceDefaultItem>
 >;
 
 /**
@@ -765,6 +915,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      BlogpostDocument,
+      BlogpostDocumentData,
+      BlogpostDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
@@ -781,6 +934,7 @@ declare module "@prismicio/client" {
       AllDocumentTypes,
       BlogShowcaseSlice,
       BlogShowcaseSliceDefaultPrimary,
+      BlogShowcaseSliceDefaultItem,
       BlogShowcaseSliceVariation,
       BlogShowcaseSliceDefault,
       GamingSiteFactsSlice,

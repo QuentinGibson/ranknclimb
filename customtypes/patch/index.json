@@ -1,0 +1,24 @@
+{
+  "format": "custom",
+  "id": "patch",
+  "label": "Patch",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "version": {
+        "type": "Text",
+        "config": {
+          "label": "Version",
+          "placeholder": ""
+        }
+      }
+    }
+  }
+}

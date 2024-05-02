@@ -4,6 +4,86 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+/**
+ * Item in *Abilities → Questions*
+ */
+export interface AbilitiesDocumentDataQuestionsItem {
+  /**
+   * Question field in *Abilities → Questions*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: abilities.questions[].question
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  question: prismic.ContentRelationshipField<"questions">;
+}
+
+/**
+ * Content for Abilities documents
+ */
+interface AbilitiesDocumentData {
+  /**
+   * Name field in *Abilities*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: abilities.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * description field in *Abilities*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: abilities.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * image field in *Abilities*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: abilities.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Questions field in *Abilities*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: abilities.questions[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  questions: prismic.GroupField<Simplify<AbilitiesDocumentDataQuestionsItem>>;
+}
+
+/**
+ * Abilities document from Prismic
+ *
+ * - **API ID**: `abilities`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AbilitiesDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<AbilitiesDocumentData>,
+    "abilities",
+    Lang
+  >;
+
 type BlogpostDocumentDataSlicesSlice = RichTextSlice;
 
 /**
@@ -99,6 +179,218 @@ export type BlogpostDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<
     Simplify<BlogpostDocumentData>,
     "blogpost",
+    Lang
+  >;
+
+/**
+ * Item in *Champion → Abilities*
+ */
+export interface ChampionDocumentDataAbilitiesItem {
+  /**
+   * Spell field in *Champion → Abilities*
+   *
+   * - **Field Type**: Content Relationship
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.abilities[].spell
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  spell: prismic.ContentRelationshipField<"abilities">;
+}
+
+type ChampionDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Champion documents
+ */
+interface ChampionDocumentData {
+  /**
+   * Name field in *Champion*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Description field in *Champion*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Image field in *Champion*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.image
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * SplashArt field in *Champion*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.splashart
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  splashart: prismic.ImageField<never>;
+
+  /**
+   * release field in *Champion*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: champion.release
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  release: prismic.BooleanField;
+
+  /**
+   * Abilities field in *Champion*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.abilities[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  abilities: prismic.GroupField<Simplify<ChampionDocumentDataAbilitiesItem>>;
+
+  /**
+   * Slice Zone field in *Champion*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ChampionDocumentDataSlicesSlice> /**
+   * Meta Description field in *Champion*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: champion.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Champion*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champion.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *Champion*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: champion.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * Champion document from Prismic
+ *
+ * - **API ID**: `champion`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ChampionDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ChampionDocumentData>,
+    "champion",
+    Lang
+  >;
+
+type ChampionsDocumentDataSlicesSlice = never;
+
+/**
+ * Content for ChampionsList documents
+ */
+interface ChampionsDocumentData {
+  /**
+   * Slice Zone field in *ChampionsList*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champions.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ChampionsDocumentDataSlicesSlice> /**
+   * Meta Description field in *ChampionsList*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: champions.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *ChampionsList*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: champions.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *ChampionsList*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: champions.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * ChampionsList document from Prismic
+ *
+ * - **API ID**: `champions`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ChampionsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<ChampionsDocumentData>,
+    "champions",
     Lang
   >;
 
@@ -240,6 +532,228 @@ export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
 
 /**
+ * Content for Patch documents
+ */
+interface PatchDocumentData {
+  /**
+   * Version field in *Patch*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: patch.version
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  version: prismic.KeyTextField;
+}
+
+/**
+ * Patch document from Prismic
+ *
+ * - **API ID**: `patch`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PatchDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<PatchDocumentData>, "patch", Lang>;
+
+/**
+ * Content for Position documents
+ */
+interface PositionDocumentData {
+  /**
+   * Name field in *Position*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: position.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Icon field in *Position*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: position.icon
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+}
+
+/**
+ * Position document from Prismic
+ *
+ * - **API ID**: `position`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PositionDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<PositionDocumentData>,
+    "position",
+    Lang
+  >;
+
+/**
+ * Item in *Questions → Options*
+ */
+export interface QuestionsDocumentDataOptionsItem {
+  /**
+   * Label field in *Questions → Options*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: questions.options[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * isCorrect field in *Questions → Options*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: false
+   * - **API ID Path**: questions.options[].iscorrect
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  iscorrect: prismic.BooleanField;
+}
+
+/**
+ * Content for Questions documents
+ */
+interface QuestionsDocumentData {
+  /**
+   * Question field in *Questions*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: questions.question
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  question: prismic.RichTextField;
+
+  /**
+   * Options field in *Questions*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: questions.options[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  options: prismic.GroupField<Simplify<QuestionsDocumentDataOptionsItem>>;
+}
+
+/**
+ * Questions document from Prismic
+ *
+ * - **API ID**: `questions`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type QuestionsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<QuestionsDocumentData>,
+    "questions",
+    Lang
+  >;
+
+/**
+ * Content for Range Type documents
+ */
+interface RangeTypeDocumentData {
+  /**
+   * Name field in *Range Type*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: range_type.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Icon field in *Range Type*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: range_type.icon
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+}
+
+/**
+ * Range Type document from Prismic
+ *
+ * - **API ID**: `range_type`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type RangeTypeDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<RangeTypeDocumentData>,
+    "range_type",
+    Lang
+  >;
+
+/**
+ * Content for Role documents
+ */
+interface RoleDocumentData {
+  /**
+   * Name field in *Role*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: role.name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  name: prismic.KeyTextField;
+
+  /**
+   * Icon field in *Role*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: role.icon
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+}
+
+/**
+ * Role document from Prismic
+ *
+ * - **API ID**: `role`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type RoleDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<RoleDocumentData>, "role", Lang>;
+
+/**
  * Item in *settings → NavItems*
  */
 export interface SettingsDocumentDataNavitemsItem {
@@ -279,16 +793,6 @@ export interface SettingsDocumentDataNavigationSignedOutActionsItem {
   label: prismic.KeyTextField;
 
   /**
-   * Link field in *settings → Navigation Signed Out Actions*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: settings.navigation_signed_out_actions[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  link: prismic.LinkField;
-
-  /**
    * CTA field in *settings → Navigation Signed Out Actions*
    *
    * - **Field Type**: Boolean
@@ -300,15 +804,25 @@ export interface SettingsDocumentDataNavigationSignedOutActionsItem {
   cta: prismic.BooleanField;
 
   /**
-   * clerk_action field in *settings → Navigation Signed Out Actions*
+   * Link field in *settings → Navigation Signed Out Actions*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: settings.navigation_signed_out_actions[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+
+  /**
+   * clerk field in *settings → Navigation Signed Out Actions*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: settings.navigation_signed_out_actions[].clerk_action
+   * - **API ID Path**: settings.navigation_signed_out_actions[].clerk
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
-  clerk_action: prismic.BooleanField;
+  clerk: prismic.BooleanField;
 }
 
 /**
@@ -347,15 +861,15 @@ export interface SettingsDocumentDataNavigationSignedInActionsItem {
   cta: prismic.BooleanField;
 
   /**
-   * Clerk Action field in *settings → Navigation Signed In Actions*
+   * clerk field in *settings → Navigation Signed In Actions*
    *
    * - **Field Type**: Boolean
    * - **Placeholder**: *None*
    * - **Default Value**: false
-   * - **API ID Path**: settings.navigation_signed_in_actions[].clerk_action
+   * - **API ID Path**: settings.navigation_signed_in_actions[].clerk
    * - **Documentation**: https://prismic.io/docs/field#boolean
    */
-  clerk_action: prismic.BooleanField;
+  clerk: prismic.BooleanField;
 }
 
 /**
@@ -548,9 +1062,17 @@ export type SettingsDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | AbilitiesDocument
   | BlogpostDocument
+  | ChampionDocument
+  | ChampionsDocument
   | HomeDocument
   | PageDocument
+  | PatchDocument
+  | PositionDocument
+  | QuestionsDocument
+  | RangeTypeDocument
+  | RoleDocument
   | SettingsDocument;
 
 /**
@@ -915,15 +1437,36 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AbilitiesDocument,
+      AbilitiesDocumentData,
+      AbilitiesDocumentDataQuestionsItem,
       BlogpostDocument,
       BlogpostDocumentData,
       BlogpostDocumentDataSlicesSlice,
+      ChampionDocument,
+      ChampionDocumentData,
+      ChampionDocumentDataAbilitiesItem,
+      ChampionDocumentDataSlicesSlice,
+      ChampionsDocument,
+      ChampionsDocumentData,
+      ChampionsDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
       PageDocument,
       PageDocumentData,
       PageDocumentDataSlicesSlice,
+      PatchDocument,
+      PatchDocumentData,
+      PositionDocument,
+      PositionDocumentData,
+      QuestionsDocument,
+      QuestionsDocumentData,
+      QuestionsDocumentDataOptionsItem,
+      RangeTypeDocument,
+      RangeTypeDocumentData,
+      RoleDocument,
+      RoleDocumentData,
       SettingsDocument,
       SettingsDocumentData,
       SettingsDocumentDataNavitemsItem,

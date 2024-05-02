@@ -51,14 +51,6 @@
                 "placeholder": ""
               }
             },
-            "link": {
-              "type": "Link",
-              "config": {
-                "label": "Link",
-                "placeholder": "",
-                "select": null
-              }
-            },
             "cta": {
               "type": "Boolean",
               "config": {
@@ -68,10 +60,18 @@
                 "placeholder_false": "false"
               }
             },
-            "clerk_action": {
+            "link": {
+              "type": "Link",
+              "config": {
+                "label": "Link",
+                "placeholder": "",
+                "select": null
+              }
+            },
+            "clerk": {
               "type": "Boolean",
               "config": {
-                "label": "clerk_action",
+                "label": "clerk",
                 "default_value": false,
                 "placeholder_true": "true",
                 "placeholder_false": "false"
@@ -110,13 +110,13 @@
                 "placeholder_false": "false"
               }
             },
-            "clerk_action": {
+            "clerk": {
               "type": "Boolean",
               "config": {
-                "label": "Clerk Action",
-                "placeholder_false": "false",
+                "label": "clerk",
+                "default_value": false,
                 "placeholder_true": "true",
-                "default_value": false
+                "placeholder_false": "false"
               }
             }
           }

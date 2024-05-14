@@ -14,9 +14,18 @@ export default async function Page({ params }: { params: Params }) {
   const client = createClient();
   const page = await client
     .getByUID("champion", params.uid, {
-      fetchLinks: ["abilities.name", "abilities.image"],
+      fetchLinks: ["abilities.name", "abilities.image", "abilities.questions"],
     })
     .catch(() => notFound());
+  const totalQuestions = page.data.abilities.reduce(
+    (count, ability) =>
+      isFilled.contentRelationship(ability.spell)
+        ? count +
+          (ability.spell.data as Content.AbilitiesDocumentData).questions.length
+        : count,
+    0,
+  );
+  let userTotalCompleted = 0;
 
   return (
     <>
@@ -47,7 +56,9 @@ export default async function Page({ params }: { params: Params }) {
               </h2>
               <div className="flex flex-col gap-2">
                 <div className="flex font-semibold">
-                  <span>74 / {page.data.abilities.length * 30}</span>
+                  <span>
+                    {userTotalCompleted} / {totalQuestions}
+                  </span>
                 </div>
                 <div
                   id="progress-bar"
@@ -56,7 +67,7 @@ export default async function Page({ params }: { params: Params }) {
                   <div
                     className="z-10 h-full bg-gradient-to-l from-[#fe6565] to-[#c10000]"
                     style={{
-                      width: `${(74 / (page.data.abilities.length * 30)) * 100}%`,
+                      width: `${(userTotalCompleted / totalQuestions) * 100}%`,
                     }}
                   ></div>
                 </div>
@@ -68,8 +79,9 @@ export default async function Page({ params }: { params: Params }) {
                   if (isFilled.contentRelationship(ability.spell) === false) {
                     throw new Error("Ability is missing spell relationship");
                   }
-                  const { name, image } = ability.spell
+                  const { name, image, questions } = ability.spell
                     .data as Content.AbilitiesDocumentData;
+                  let userCompleted = 0;
                   return (
                     <li key={index}>
                       <div className="rounded-3xl border-2 border-[#eb5757] bg-gradient-to-b from-[#2d2e32]/70 from-10% to-[#601212] px-3 py-6">
@@ -86,7 +98,9 @@ export default async function Page({ params }: { params: Params }) {
                           </div>
                           <div className="mt-4 flex w-full flex-col items-center justify-between gap-4 md:flex-row">
                             <div className="flex flex-col items-center justify-center sm:order-2">
-                              <span className="font-semibold">10 / 30</span>
+                              <span className="font-semibold">
+                                {userCompleted} / {questions.length}
+                              </span>
                               <div
                                 id="progress-bar"
                                 className="h-3 w-[70px] overflow-hidden rounded-lg bg-[#1A1D26]"
@@ -94,7 +108,7 @@ export default async function Page({ params }: { params: Params }) {
                                 <div
                                   className="z-10 h-full bg-gradient-to-l from-[#fe6565] to-[#c10000]"
                                   style={{
-                                    width: `${(10 / 30) * 100}%`,
+                                    width: `${(userCompleted / questions.length) * 100}%`,
                                   }}
                                 ></div>
                               </div>

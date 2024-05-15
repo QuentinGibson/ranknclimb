@@ -4,7 +4,8 @@ import { PrismicText, SliceZone } from "@prismicio/react";
 
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { PrismicNextImage } from "@prismicio/next";
+import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
+import Link from "next/link";
 import Bounded from "@/app/components/Bounded";
 import { Content, isFilled } from "@prismicio/client";
 
@@ -84,7 +85,7 @@ export default async function Page({ params }: { params: Params }) {
                   let userCompleted = 0;
                   return (
                     <li key={index}>
-                      <div className="rounded-3xl border-2 border-[#eb5757] bg-gradient-to-b from-[#2d2e32]/70 from-10% to-[#601212] px-3 py-6">
+                      <div className="rounded-3xl border-2 border-[#eb5757] bg-gradient-to-t from-[#601212]/70 from-10% to-[#360a0a] px-3 py-6">
                         <div className="flex flex-col items-center gap-2 md:items-baseline">
                           <h1 className="text-lg font-bold md:text-2xl">
                             {name}
@@ -113,9 +114,13 @@ export default async function Page({ params }: { params: Params }) {
                                 ></div>
                               </div>
                             </div>
-                            <button className="rounded-lg bg-[#eb5757] px-6 py-1 font-semibold text-black sm:order-1">
+                            <Link
+                              href={`/quiz/${ability.spell.id}`}
+                              passHref
+                              className="rounded-lg bg-[#eb5757] px-6 py-1 font-semibold text-black sm:order-1"
+                            >
                               Take Mastery
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       </div>

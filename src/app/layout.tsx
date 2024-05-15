@@ -1,15 +1,17 @@
 import { PrismicPreview } from "@prismicio/next";
 import { repositoryName } from "@/prismicio";
 import { ClerkProvider } from "@clerk/nextjs";
-import Footer from "./components/Footer";
-import NavigationBar from "./components/NavigationBar";
+import Footer from "@/app/components/Footer";
+import NavigationBar from "@/app/components/NavigationBar";
 
 import "@/global.css";
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <ClerkProvider>
@@ -17,7 +19,9 @@ export default function RootLayout({
         <body>
           <NavigationBar />
           <main>{children}</main>
-          <Footer/>
+          {modal}
+          <Footer />
+          <div id="modal-root"></div>
         </body>
         <PrismicPreview repositoryName={repositoryName} />
       </html>

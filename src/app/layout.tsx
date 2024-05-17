@@ -18,10 +18,12 @@ export default function RootLayout({
       <html lang="en" className="bg-[#0d0c11] text-white">
         <body>
           <NavigationBar />
-          <main>{children}</main>
+          <main>
+            {children}
+            <div id="modal-root"></div>
+          </main>
           {modal}
           <Footer />
-          <div id="modal-root"></div>
         </body>
         <PrismicPreview repositoryName={repositoryName} />
       </html>

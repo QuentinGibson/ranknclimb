@@ -24,17 +24,23 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <div className="modal-backdrop ">
       <dialog
         ref={dialogRef}
-        className="modal m-0 flex h-screen max-h-full w-screen max-w-full items-center justify-center bg-zinc-900/60"
+        className="modal m-0 h-screen max-h-full w-screen max-w-full bg-zinc-900/60"
         onClose={onDismiss}
       >
-        <div className="relative w-4/5 rounded-lg bg-[#0d0c11] px-7 py-3 text-white">
-          <div className="absolute right-0 top-3">
-            <button onClick={onDismiss} className="close-button">
-              <LuX className="size-6 text-white" />
-            </button>
+        <div className="relative flex h-full w-full items-center justify-center">
+          <div className="relative z-10 h-4/5 min-h-96 w-4/5  rounded-lg bg-[#0d0c11] px-2 text-white">
+            <div className="absolute right-10 top-5 w-fit">
+              <button onClick={onDismiss} className="close-button absolute">
+                <LuX className="size-6 text-white" />
+              </button>
+            </div>
+            {children}
           </div>
-          {children}
         </div>
+        <div
+          className="absolute left-0 top-0 h-screen w-screen "
+          onClick={onDismiss}
+        ></div>
       </dialog>
     </div>,
     document.getElementById("modal-root")!,

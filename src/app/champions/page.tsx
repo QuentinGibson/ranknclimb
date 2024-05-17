@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { SliceZone } from "@prismicio/react";
-
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
 import Bounded from "../components/Bounded";
@@ -10,7 +9,7 @@ export default async function Page() {
   const client = createClient();
   const page = await client.getSingle("champions");
   const champions = await client.getAllByType("champion", {
-    orderings: "my.champion.name",
+    orderings: { field: "my.champion.name", direction: "asc" },
   });
 
   return (
@@ -35,6 +34,8 @@ export default async function Page() {
                     fill
                     field={champion.data.image}
                     className="h-full w-full"
+                    sizes="(max-width: 600) 25vw,
+                    33vw"
                   />
                 </div>
                 <h2 className="text-lg font-bold">{champion.data.name}</h2>

@@ -31,8 +31,9 @@ const GamingSiteFacts = ({ slice }: GamingSiteFactsProps): JSX.Element => {
           <PrismicNextImage
             field={slice.primary.jumbotron}
             className="object-cover"
-            sizes="100vw"
             fill
+            sizes="(min-width: 768px) 50vw,
+            100vw"
           />
         </div>
         <div className="grid grid-cols-[70px_1fr] items-center gap-x-4 gap-y-4 md:grid-cols-[100px_1fr]">

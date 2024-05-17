@@ -15,12 +15,13 @@ export default async function NavigationBar() {
       <div className="flex w-full items-center justify-between gap-8 lg:gap-16">
         <div className="relative h-[90px] w-[100px]">
           {isFilled.image(data.logo) ? (
-            <PrismicNextImage field={data.logo} fill />
+            <PrismicNextImage field={data.logo} fill sizes="100px" />
           ) : (
             <Image
               src="/images/logo.svg"
               fill
               alt="The offical RankNClimb Logo!"
+              sizes="100px"
             />
           )}
         </div>

@@ -5,7 +5,8 @@ import {
   AbilitiesDocument,
   QuestionsDocument,
 } from "../../../../../prismicio-types";
-import { isFilled } from "@prismicio/client";
+import { FilledContentRelationshipField, isFilled } from "@prismicio/client";
+import Quizlet from "@/app/components/Quizlet";
 
 export default async function PhotoModal({
   params: { id },
@@ -16,12 +17,16 @@ export default async function PhotoModal({
   const ability = await client.getByID<AbilitiesDocument>(id, {
     fetchLinks: ["questions.question", "questions.options", "questions.uid"],
   });
-  console.dir(ability.data.questions, { depth: 5 });
-  const questionList = [];
+  const questionList: FilledContentRelationshipField<
+    "questions",
+    "en-us",
+    Pick<QuestionsDocument["data"], "options" | "question">
+  >[] = [];
   for (const question of ability.data.questions) {
     if (
       isFilled.contentRelationship<
         "questions",
+        "en-us",
         Pick<QuestionsDocument["data"], "options" | "question">
       >(question.question)
     ) {
@@ -31,8 +36,10 @@ export default async function PhotoModal({
 
   return (
     <Modal>
-      <div className="w-full">
-        <div className="zinc-950 flex items-center">{id}</div>
+      <div className="h-full w-full">
+        <div className="zinc-950 flex h-full items-center px-4 py-8">
+          <Quizlet cards={questionList} title={ability.data.name} />
+        </div>
       </div>
     </Modal>
   );

@@ -26,34 +26,11 @@ export default function Quiz({
     undefined,
   );
   const [showResults, setShowResults] = useState<boolean>(false);
-  const [timeLeft, setTimeLeft] = useState<number>(60);
   const [userAnswers, setUserAnswers] = useState<
     Record<number, number | undefined>
   >({});
-  const intervalId = useRef<NodeJS.Timeout | null>(null);
 
   const radioRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setTimeLeft(60);
-    if (intervalId.current) clearInterval(intervalId.current);
-
-    intervalId.current = setInterval(() => {
-      setTimeLeft((prevTimeLeft) => {
-        if (prevTimeLeft <= 0) {
-          if (intervalId.current) clearInterval(intervalId.current);
-          if (currentCardIndex === cards.length - 1) setShowResults(true);
-          setCurrentCardIndex((prevIndex) => prevIndex + 1);
-          return prevTimeLeft;
-        }
-        return prevTimeLeft - 1;
-      });
-    }, 1000);
-
-    return () => {
-      if (intervalId.current) clearInterval(intervalId.current);
-    };
-  }, [currentCard]);
 
   return (
     <>
@@ -122,16 +99,13 @@ export default function Quiz({
           </div>
         </div>
       ) : (
-        <div className="flex h-full w-full flex-col gap-2">
+        <div className="mx-auto flex h-full w-full max-w-md flex-col gap-2 px-4">
           <div id="QuizHeader" className="flex flex-col gap-1">
             <h1 className="text-2xl font-bold md:text-7xl">{title}</h1>
-            <span className="font-bold">
-              Time Left: {Math.max(0, parseInt(timeLeft.toFixed(0)))} seconds
-            </span>
           </div>
           <div
             id="QuizBody"
-            className="flex h-1 w-full grow flex-col gap-16 overflow-auto bg-neutral-800 px-4 py-2 md:w-full"
+            className="flex h-fit w-full grow flex-col gap-16 overflow-auto py-2 md:w-full"
           >
             <h2 className="prose text-xl font-semibold text-slate-200">
               {currentCard.data && (
@@ -188,7 +162,7 @@ export default function Quiz({
                 <div className="flex flex-col items-center justify-between gap-2 md:flex-row">
                   <button
                     type="button"
-                    className="mt-2 w-fit min-w-32 rounded bg-gray-100 py-1 text-black hover:bg-gray-300"
+                    className="mt-2 w-16 min-w-32 rounded bg-gray-100 py-1 text-black hover:bg-gray-300"
                     onClick={() => {
                       setUserAnswers((prevAnswers) => ({
                         ...prevAnswers,

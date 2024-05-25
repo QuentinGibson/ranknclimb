@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "concurrently \"npm:next:dev\" \"npm:slicemachine\" --names \"next,slicemachine\" --prefix-colors blue,magenta",
     "dev:inspect": "concurrently \"npm:next:dev:inspect\" \"npm:slicemachine\" --names \"next-inspect,slicemachine\" --prefix-colors blue,magenta",
+    "dev:turbo": "concurrently \"npm:next:dev:turbo\" \"npm:slicemachine\" --names \"next-turbo,slicemachine\" --prefix-colors blue,magenta",
+    "next:dev:turbo": "next dev --turbo",
     "next:dev": "next dev",
     "next:dev:inspect": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",

@@ -118,6 +118,7 @@ export default async function Page({ params }: { params: Params }) {
                               href={`/quiz/${ability.spell.id}`}
                               passHref
                               className="rounded-lg bg-[#eb5757] px-6 py-1 font-semibold text-black sm:order-1"
+                              scroll={false}
                             >
                               Take Mastery
                             </Link>

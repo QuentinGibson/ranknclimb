@@ -38,7 +38,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <div
-          className="absolute left-0 top-0 h-screen w-screen "
+          className="absolute left-0 top-0 h-full w-full "
           onClick={onDismiss}
         ></div>
       </dialog>

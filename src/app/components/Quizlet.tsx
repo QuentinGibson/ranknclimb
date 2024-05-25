@@ -65,10 +65,20 @@ export default function Quiz({
                       </p>
                       {!isCorrect && (
                         <p>
-                          <span>
-                            Correct answer:{" "}
-                            {currentCard.data.options[correctChoiceIndex].label}
-                          </span>
+                          {correctChoiceIndex !== -1 ? (
+                            <span>
+                              Correct answer:{" "}
+                              {
+                                currentCard.data.options[correctChoiceIndex]
+                                  .label
+                              }
+                            </span>
+                          ) : (
+                            <span>
+                              Correct Answer is bugged! This has been
+                              automaticly reported!
+                            </span>
+                          )}
                         </p>
                       )}
                     </div>

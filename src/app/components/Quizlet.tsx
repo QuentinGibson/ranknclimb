@@ -8,7 +8,7 @@ import { PrismicText } from "@prismicio/react";
 import { clsx } from "clsx";
 import Link from "next/link";
 import { QuestionsDocument } from "../../../prismicio-types";
-import { useQuizStore } from "../../../lib/quizStore";
+import { useQuizStore } from "../../lib/quizStore";
 
 export default function Quiz({
   title,
@@ -167,7 +167,8 @@ export default function Quiz({
                     type="button"
                     className="mt-2 w-16 min-w-32 rounded bg-gray-100 py-1 text-black hover:bg-gray-300"
                     onClick={() => {
-                      setUserAnswers(currentQuestionIndex, currentChoice)
+                      const isCorrect = currentCard.data?.options[currentChoice!].iscorrect;
+                      setUserAnswers(currentCard.id, currentQuestionIndex, currentChoice, isCorrect || false)
                       if (currentCard === cards[cards.length - 1]) {
                         setQuizState("result");
                       } else {

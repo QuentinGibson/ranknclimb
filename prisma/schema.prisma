@@ -36,18 +36,18 @@ model Card {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // UserCardResult UserCardResult[]
+  UserCardResult UserCardResult[]
 }
 
-// model UserCardResult {
-//   id        String   @id @default(cuid())
-//   userId    String
-//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   cardId    String
-//   card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
-//   isCorrect Boolean
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
+model UserCardResult {
+  id        String   @id @default(cuid())
+  userId    String
+  cardId    String
+  userChoiceIndex Int
+  isCorrect Boolean
+  card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-//   @@index([userId, cardId, createdAt])
-// }
+  @@index([userId, cardId, createdAt])
+}

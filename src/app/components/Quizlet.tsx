@@ -8,6 +8,7 @@ import { PrismicText } from "@prismicio/react";
 import { clsx } from "clsx";
 import Link from "next/link";
 import { QuestionsDocument } from "../../../prismicio-types";
+import { useQuizStore } from "../../../lib/quizStore";
 
 export default function Quiz({
   title,
@@ -20,8 +21,8 @@ export default function Quiz({
     Pick<QuestionsDocument["data"], "options" | "question">
   >[];
 }) {
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [currentCard, setCurrentCard] = useState(cards[currentCardIndex]);
+  const {currentQuestionIndex, setCurrentQuestionIndex} = useQuizStore();
+  const currentCard = cards[currentQuestionIndex]
   const [currentChoice, setCurrentChoice] = useState<number | undefined>(
     undefined,
   );
@@ -97,8 +98,7 @@ export default function Quiz({
               className="mt-4 w-fit min-w-32 rounded bg-gray-100 py-4 text-black hover:bg-gray-300"
               onClick={(event) => {
                 event.preventDefault();
-                setCurrentCardIndex(0);
-                setCurrentCard(cards[0]);
+                setCurrentQuestionIndex(0);
                 setCurrentChoice(undefined);
                 setShowResults(false);
                 setUserAnswers({});
@@ -176,21 +176,20 @@ export default function Quiz({
                     onClick={() => {
                       setUserAnswers((prevAnswers) => ({
                         ...prevAnswers,
-                        [currentCardIndex]: currentChoice,
+                        [currentQuestionIndex]: currentChoice,
                       }));
                       if (currentCard === cards[cards.length - 1]) {
                         setShowResults(true);
                       } else {
-                        setCurrentCardIndex(currentCardIndex + 1);
-                        setCurrentCard(cards[currentCardIndex + 1]);
+                        setCurrentQuestionIndex(currentQuestionIndex + 1);
                         setCurrentChoice(undefined);
                       }
                     }}
                   >
-                    {currentCardIndex === cards.length - 1 ? "Submit" : "Next"}
+                    {currentQuestionIndex === cards.length - 1 ? "Submit" : "Next"}
                   </button>
                   <span className="font-bold text-slate-400">
-                    Question: {currentCardIndex + 1} of {cards.length}
+                    Question: {currentQuestionIndex + 1} of {cards.length}
                   </span>
                 </div>
               </div>

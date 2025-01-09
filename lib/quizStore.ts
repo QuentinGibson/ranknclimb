@@ -11,6 +11,7 @@ interface QuizStore {
   quizStarted: boolean;
   startQuiz: () => void;
   answerQuestion: (questionIndex: number, answerIndex: number, isCorrect: boolean) => void;
+  setCurrentQuestionIndex: (index: number) => void;
 }
 
 export const useQuizStore = create<QuizStore>((set) => ({
@@ -23,5 +24,6 @@ export const useQuizStore = create<QuizStore>((set) => ({
     const newState = Object.assign({}, state)
     newState.userAnswers[questionIndex] = {answerIndex, isCorrect} as UserAnswer
     return newState
-  })
+  }),
+  setCurrentQuestionIndex: (index: number) => set({ currentQuestionIndex: index })
 }))

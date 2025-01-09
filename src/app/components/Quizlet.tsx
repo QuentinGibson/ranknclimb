@@ -21,21 +21,14 @@ export default function Quiz({
     Pick<QuestionsDocument["data"], "options" | "question">
   >[];
 }) {
-  const {currentQuestionIndex, setCurrentQuestionIndex} = useQuizStore();
-  const currentCard = cards[currentQuestionIndex]
-  const [currentChoice, setCurrentChoice] = useState<number | undefined>(
-    undefined,
-  );
-  const [showResults, setShowResults] = useState<boolean>(false);
-  const [userAnswers, setUserAnswers] = useState<
-    Record<number, number | undefined>
-  >({});
-
+  const { currentQuestionIndex, setCurrentQuestionIndex, userAnswers, setUserAnswers, startQuiz, showResults, setQuizState, quizState } = useQuizStore();
+  const currentCard = cards[currentQuestionIndex];
+  const [currentChoice, setCurrentChoice] = useState<number | undefined>(undefined);
   const radioRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
-      {showResults ? (
+      {quizState === "result" ? (
         <div className="flex w-full flex-col gap-8">
           <h1 className="text-xl font-bold md:text-7xl">{title}</h1>
           <div className="flex flex-col gap-4">
@@ -100,8 +93,8 @@ export default function Quiz({
                 event.preventDefault();
                 setCurrentQuestionIndex(0);
                 setCurrentChoice(undefined);
-                setShowResults(false);
-                setUserAnswers({});
+                setQuizState("inProgress");
+                startQuiz();
               }}
             >
               Try again
@@ -132,8 +125,8 @@ export default function Quiz({
                     value={
                       currentChoice
                         ? JSON.stringify(
-                            currentCard.data.options[currentChoice],
-                          )
+                          currentCard.data.options[currentChoice],
+                        )
                         : undefined
                     }
                     ref={radioRef}
@@ -174,19 +167,18 @@ export default function Quiz({
                     type="button"
                     className="mt-2 w-16 min-w-32 rounded bg-gray-100 py-1 text-black hover:bg-gray-300"
                     onClick={() => {
-                      setUserAnswers((prevAnswers) => ({
-                        ...prevAnswers,
-                        [currentQuestionIndex]: currentChoice,
-                      }));
+                      setUserAnswers(currentQuestionIndex, currentChoice)
                       if (currentCard === cards[cards.length - 1]) {
-                        setShowResults(true);
+                        setQuizState("result");
                       } else {
                         setCurrentQuestionIndex(currentQuestionIndex + 1);
                         setCurrentChoice(undefined);
                       }
                     }}
                   >
-                    {currentQuestionIndex === cards.length - 1 ? "Submit" : "Next"}
+                    {currentQuestionIndex === cards.length - 1
+                      ? "Submit"
+                      : "Next"}
                   </button>
                   <span className="font-bold text-slate-400">
                     Question: {currentQuestionIndex + 1} of {cards.length}

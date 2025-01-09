@@ -8,7 +8,6 @@ interface QuizStore {
   answerQuestion: (questionIndex: number, answerIndex: number, isCorrect: boolean) => void;
   setCurrentQuestionIndex: (index: number) => void;
   setUserAnswers: (currentQuestionIndex: number, userAnswer:number | undefined) => void;
-  showResults: () => void;
   setQuizState: (state: "init" | "inProgress" | "result") => void;
 }
 
@@ -28,6 +27,5 @@ export const useQuizStore = create<QuizStore>((set) => ({
     newState.userAnswers[currentQuestionIndex] = userAnswer
     return newState
   }),
-  showResults: () => set({ quizState: "result" }),
   setQuizState: (state: "init" | "inProgress" | "result") => set({ quizState: state })
 }))

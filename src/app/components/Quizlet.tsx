@@ -21,7 +21,7 @@ export default function Quiz({
     Pick<QuestionsDocument["data"], "options" | "question">
   >[];
 }) {
-  const { currentQuestionIndex, setCurrentQuestionIndex, userAnswers, setUserAnswers, startQuiz, showResults, setQuizState, quizState } = useQuizStore();
+  const { currentQuestionIndex, setCurrentQuestionIndex, userAnswers, setUserAnswers, startQuiz, setQuizState, quizState } = useQuizStore();
   const currentCard = cards[currentQuestionIndex];
   const [currentChoice, setCurrentChoice] = useState<number | undefined>(undefined);
   const radioRef = useRef<HTMLInputElement>(null);
@@ -104,7 +104,7 @@ export default function Quiz({
       ) : (
         <div className="mx-auto flex h-full w-full max-w-md flex-col gap-2 px-4">
           <div id="QuizHeader" className="flex flex-col gap-1">
-            <h1 className="text-2xl font-bold md:text-7xl">{title}</h1>
+            <h1 className="text-2xl font-bold md:text-5xl">{title}</h1>
           </div>
           <div
             id="QuizBody"

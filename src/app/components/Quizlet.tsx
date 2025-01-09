@@ -76,7 +76,7 @@ export default function Quiz({
                           ) : (
                             <span>
                               Correct Answer is bugged! This has been
-                              automaticly reported!
+                              automatically reported!
                             </span>
                           )}
                         </p>
@@ -148,7 +148,7 @@ export default function Quiz({
                             <div className="flex w-full flex-col">
                               <button
                                 className={clsx(
-                                  "mx-autow-full rounded py-2",
+                                  "mx-auto w-full rounded py-2",
                                   currentChoice === index
                                     ? "bg-blue-400 hover:bg-blue-400"
                                     : "bg-gray-600 hover:bg-gray-500",

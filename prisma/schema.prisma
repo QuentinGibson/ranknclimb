@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+//TODO: Change database to postgresql using vercel env variables
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+  // Further reading:
+  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+  url = env("DATABASE_URL")
+}
+model FeedBack {
+  id        String   @id @default(cuid())
+  message   String
+  hidden    Boolean  @default(false)
+  completed Boolean  @default(false)
+  read      Boolean  @default(false)
+  rating Int? // 1-5
+  type String? // Can be 'bug', 'feature request', 'other'
+  platform String? // Can be 'mobile', 'desktop', 'other'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId             String
+}
+
+model Card {
+  id        String   @id @default(cuid())
+  prismicId String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // UserCardResult UserCardResult[]
+}
+
+// model UserCardResult {
+//   id        String   @id @default(cuid())
+//   userId    String
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   cardId    String
+//   card      Card     @relation(fields: [cardId], references: [id], onDelete: Cascade)
+//   isCorrect Boolean
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@index([userId, cardId, createdAt])
+// }

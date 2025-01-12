@@ -7,12 +7,11 @@ import {
 } from "../../../../prismicio-types";
 import { FilledContentRelationshipField, isFilled } from "@prismicio/client";
 
-interface Params {
-  id: string;
-}
+type QuizPageParams = Promise<{ id: string }>;
 
-export default async function QuizPage({ params }: { params: Params }) {
-  const { id } = params;
+
+export default async function QuizPage({ params }: { params: QuizPageParams }) {
+  const { id } = await params;
   const client = createClient();
   const ability = await client.getByID<AbilitiesDocument>(id, {
     fetchLinks: ["questions.question", "questions.options", "questions.uid"],

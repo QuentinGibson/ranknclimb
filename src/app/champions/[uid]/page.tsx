@@ -1,20 +1,20 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PrismicText, SliceZone } from "@prismicio/react";
-
 import { createClient } from "@/prismicio";
 import { components } from "@/slices";
-import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
+import { PrismicNextImage } from "@prismicio/next";
 import Link from "next/link";
 import Bounded from "@/app/components/Bounded";
 import { Content, isFilled } from "@prismicio/client";
 
-type Params = { uid: string };
+type Params = Promise<{ uid: string }>;
 
 export default async function Page({ params }: { params: Params }) {
   const client = createClient();
+  const { uid } = await params
   const page = await client
-    .getByUID("champion", params.uid, {
+    .getByUID("champion", uid, {
       fetchLinks: ["abilities.name", "abilities.image", "abilities.questions"],
     })
     .catch(() => notFound());
@@ -144,8 +144,9 @@ export async function generateMetadata({
   params: Params;
 }): Promise<Metadata> {
   const client = createClient();
+  const { uid} = await params
   const page = await client
-    .getByUID("champion", params.uid)
+    .getByUID("champion", uid)
     .catch(() => notFound());
 
   return {

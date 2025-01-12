@@ -21,11 +21,11 @@
     "prisma:studio": "prisma studio"
   },
   "dependencies": {
-    "@clerk/nextjs": "^5.7.5",
+    "@clerk/nextjs": "^6.9.9",
     "@prisma/client": "^6.2.1",
-    "@prismicio/client": "^7.5.0",
-    "@prismicio/next": "^1.5.0",
-    "@prismicio/react": "^2.7.4",
+    "@prismicio/client": "^7.14.0",
+    "@prismicio/next": "^1.7.1",
+    "@prismicio/react": "^2.9.1",
     "@sentry/nextjs": "^8",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@upstash/ratelimit": "^2.0.5",
@@ -33,9 +33,9 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.373.0",
     "next": "^15.1.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-icons": "^5.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.4.0",
     "zod": "^3.24.1",
     "zustand": "^5.0.3"
   },

@@ -2,7 +2,7 @@ import { createClient } from "@/prismicio";
 import { isFilled } from "@prismicio/client";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicText } from "@prismicio/react";
-import { SiInstagram, SiFacebook, SiTwitter, SiYoutube } from "react-icons/si";
+import { SiInstagram, SiFacebook, SiX, SiYoutube } from "react-icons/si";
 import { Send } from "lucide-react";
 
 export default async function Footer() {
@@ -20,7 +20,7 @@ export default async function Footer() {
   const socialMediaIcon = {
     Facebook: <SiFacebook />,
     Instagram: <SiInstagram />,
-    Twitter: <SiTwitter />,
+    Twitter: <SiX />,
     Youtube: <SiYoutube />,
   };
   return (
@@ -47,7 +47,7 @@ export default async function Footer() {
                     <PrismicNextLink
                       field={item.link}
                       key={index}
-                      aria-label={`Our offical ${item.icon} page`}
+                      aria-label={`Our official ${item.icon} page`}
                     >
                       <div className="rounded-full bg-slate-800 p-2">
                         {socialMediaIcon[item.icon]}
@@ -77,7 +77,7 @@ export default async function Footer() {
             </ul>
           </div>
           <div className="flex flex-col gap-4">
-            <p className="text-3xl font-bold">Newletter</p>
+            <p className="text-3xl font-bold">Newsletter</p>
             <div className="h-1 w-[140px] bg-gradient-to-r from-[#f43838] to-[#c27373]" />
             <span className="max-w-xs text-slate-400">
               <PrismicText field={newsletter} />

@@ -20,7 +20,7 @@ export default async function NavigationBar() {
             <Image
               src="/images/logo.svg"
               fill
-              alt="The offical RankNClimb Logo!"
+              alt="The official RankNClimb Logo!"
               sizes="100px"
             />
           )}

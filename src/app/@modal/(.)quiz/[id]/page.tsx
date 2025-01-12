@@ -8,12 +8,12 @@ import {
 import { FilledContentRelationshipField, isFilled } from "@prismicio/client";
 import Quizlet from "@/app/components/Quizlet";
 
-export default async function PhotoModal({
-  params: { id },
-}: {
-  params: { id: string };
-}) {
+type PhotoModalParams = Promise<{ id: string }>;
+
+export default async function PhotoModal({ params }: {params: PhotoModalParams}) {
+  const { id } = await params;
   const client = createClient();
+  console.log(id)
   const ability = await client.getByID<AbilitiesDocument>(id, {
     fetchLinks: ["questions.question", "questions.options", "questions.uid"],
   });

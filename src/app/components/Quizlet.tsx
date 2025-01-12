@@ -9,6 +9,7 @@ import { clsx } from "clsx";
 import Link from "next/link";
 import { QuestionsDocument } from "../../../prismicio-types";
 import { useQuizStore } from "../../lib/quizStore";
+import { createUserCardActivity } from "@/lib/queries/activities";
 
 export default function Quiz({
   title,
@@ -166,8 +167,9 @@ export default function Quiz({
                   <button
                     type="button"
                     className="mt-2 w-16 min-w-32 rounded bg-gray-100 py-1 text-black hover:bg-gray-300"
-                    onClick={() => {
+                    onClick={async () => {
                       const isCorrect = currentCard.data?.options[currentChoice!].iscorrect;
+                      createUserCardActivity(currentCard.id, currentChoice!, isCorrect || false)
                       setUserAnswers(currentCard.id, currentQuestionIndex, currentChoice, isCorrect || false)
                       if (currentCard === cards[cards.length - 1]) {
                         setQuizState("result");

@@ -1,0 +1,51 @@
+{
+  "format": "custom",
+  "id": "questions",
+  "label": "Questions",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "question": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Question",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "options": {
+        "type": "Group",
+        "config": {
+          "label": "Options",
+          "repeat": true,
+          "fields": {
+            "label": {
+              "type": "Text",
+              "config": {
+                "label": "Label",
+                "placeholder": ""
+              }
+            },
+            "iscorrect": {
+              "type": "Boolean",
+              "config": {
+                "label": "isCorrect",
+                "default_value": false,
+                "placeholder_true": "true",
+                "placeholder_false": "false"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

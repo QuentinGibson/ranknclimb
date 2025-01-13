@@ -1,0 +1,41 @@
+{
+  "id": "video_showcase",
+  "type": "SharedSlice",
+  "name": "VideoShowcase",
+  "description": "VideoShowcase",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "thumbnailoverride": {
+          "type": "Image",
+          "config": {
+            "label": "thumbnailOverride",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": ""
+          }
+        },
+        "youtubeid": {
+          "type": "Text",
+          "config": {
+            "label": "YoutubeID",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "format": "custom",
+  "id": "range_type",
+  "label": "Range Type",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
+      "name": {
+        "type": "Text",
+        "config": {
+          "label": "Name",
+          "placeholder": ""
+        }
+      },
+      "icon": {
+        "type": "Image",
+        "config": {
+          "label": "Icon",
+          "constraint": {},
+          "thumbnails": []
+        }
+      }
+    }
+  }
+}

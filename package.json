@@ -17,8 +17,7 @@
     "slicemachine": "start-slicemachine",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "prisma:studio": "prisma studio"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.9.9",

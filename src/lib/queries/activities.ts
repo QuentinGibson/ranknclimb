@@ -11,12 +11,17 @@ export const createUserCardActivity = async (cardId: string, userChoiceIndex: nu
     return
   }
 
-  await db.userCardResult.create({
-    data: {
-      userId,
-      cardId,
-      userChoiceIndex,
-      isCorrect,
-    },
-  });
+  try {
+    await db.userCardResult.create({
+      data: {
+        userId,
+        cardId,
+        userChoiceIndex,
+        isCorrect,
+      },
+    });
+  } catch (e) {
+    console.error("Error creating user card activity")
+    console.error(e)
+  }
 }
